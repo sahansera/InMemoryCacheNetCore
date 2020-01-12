@@ -4,15 +4,8 @@
 }
 
 <div class="text-center">
-    <h2 class="display-5">In-Memory Caching Async Tutorial</h2>
+    <h2 class="display-5">In-Memory Examples</h2>
     
-    <h4>Current Time: @DateTime.Now.TimeOfDay.ToString()</h4>
-    <h4>Cached Time: @(Model == null ? "No cached entry found" : Model.Value.TimeOfDay.ToString())</h4>
-    
-    <a class="btn btn-primary" asp-action="CacheGetOrCreate">Cache It</a>
-    <a class="btn btn-secondary" asp-action="CacheRemove">Clear It</a>
-    
-    <a class="btn btn-secondary" asp-action="CacheUsersAsync">Use Async</a>
-
+    <p>Click either Basic or Async to interact</p>
 
 </div>

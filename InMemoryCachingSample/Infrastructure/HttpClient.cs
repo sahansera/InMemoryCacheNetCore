@@ -7,6 +7,10 @@ using InMemoryCachingSample.Models;
 
 namespace InMemoryCachingSample.Infrastructure
 {
+    public class UserResponse
+    {
+        public User[] data { get; set; }
+    }
     public interface IHttpClient
     {
         Task<IEnumerable<User>> Get();
@@ -30,8 +34,9 @@ namespace InMemoryCachingSample.Infrastructure
             if (response.IsSuccessStatusCode)
             {
                 await using var responseStream = await response.Content.ReadAsStreamAsync();
-                var users = await JsonSerializer.DeserializeAsync
-                    <IEnumerable<User>>(responseStream);
+                var usersResponse = await JsonSerializer.DeserializeAsync
+                    <UserResponse>(responseStream);
+                var users = usersResponse.data;
                 return users;
             }
             else

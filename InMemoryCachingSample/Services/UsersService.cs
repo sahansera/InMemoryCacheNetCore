@@ -14,7 +14,12 @@ namespace InMemoryCachingSample.Services
         {
             _httpClient = httpClient;
         }
-        
+
+        public Task<IEnumerable<User>> GetUsers()
+        {
+            return _httpClient.Get();
+        }
+
         public Task<IEnumerable<User>> GetUsersAsync()
         {
             return _httpClient.Get();

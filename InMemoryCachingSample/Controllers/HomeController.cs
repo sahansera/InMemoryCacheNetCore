@@ -18,7 +18,6 @@ namespace InMemoryCachingSample.Controllers
         private readonly IMemoryCache _cache;
         private readonly IUsersService _usersService;
 
-
         public HomeController(ILogger<HomeController> logger, IMemoryCache memoryCache, IUsersService usersService)
         {
             _logger = logger;
@@ -28,12 +27,22 @@ namespace InMemoryCachingSample.Controllers
 
         public IActionResult Index()
         {
+            return View();
+        }
+        
+        public IActionResult Basic()
+        {
+            return RedirectToAction("CacheGet");
+        }
+        
+        public IActionResult CacheAsync()
+        {
             return RedirectToAction("CacheGet");
         }
 
         public IActionResult Privacy()
         {
-            return View();
+            return View("CacheAsync");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -42,37 +51,25 @@ namespace InMemoryCachingSample.Controllers
             return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
         
-        public IActionResult CacheGet()
+        public async Task<IActionResult> CacheGet()
         {
-            var cacheEntry = _cache.Get<DateTime?>(CacheKeys.Entry);
-            return View("Index", cacheEntry);
+            var users = await _usersService.GetUsers();
+            var cacheEntry = users.First();
+            return View(nameof(Basic), cacheEntry);
         }
         
-        public IActionResult CacheUsersAsync()
+        public async Task<IActionResult> CacheUsersAsync()
         {
-            var users = _usersService.GetUsersAsync();
-            Console.WriteLine(users.Result.First());
-            return RedirectToAction("CacheGet");
+            var users = await _usersService.GetUsersAsync();
+            var cacheEntry = users.First();
+            return View(nameof(Basic), cacheEntry);
         }
         
-        public IActionResult CacheGetOrCreate()
+        public async Task<IActionResult> CacheGetOrCreate()
         {
-            // Look for cache key.
-            if (!_cache.TryGetValue(CacheKeys.Entry, out DateTime cacheEntry))
-            {
-                // Key not in cache, so get data.
-                cacheEntry = DateTime.Now;
-
-                // Set cache options.
-                var cacheEntryOptions = new MemoryCacheEntryOptions()
-                    // Keep in cache for this time, reset time if accessed.
-                    .SetSlidingExpiration(TimeSpan.FromSeconds(10));
-
-                // Save data in cache.
-                _cache.Set(CacheKeys.Entry, cacheEntry, cacheEntryOptions);
-            }
-
-            return View(nameof(Index), cacheEntry);
+            var users = await _usersService.GetUsers();
+            var cacheEntry = users.First();
+            return View(nameof(Basic), cacheEntry);
         }
         
         public IActionResult CacheRemove()
@@ -80,6 +77,5 @@ namespace InMemoryCachingSample.Controllers
             _cache.Remove(CacheKeys.Entry);
             return RedirectToAction("CacheGet");
         }
-
     }
 }

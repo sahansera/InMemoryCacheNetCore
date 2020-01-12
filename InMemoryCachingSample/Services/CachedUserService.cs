@@ -22,9 +22,24 @@ namespace InMemoryCachingSample.Services
             _cacheProvider = cacheProvider;
         }
 
+        public async Task<IEnumerable<User>> GetUsers()
+        {
+            return await GetCachedResponse(CacheKeys.Users, () => _usersService.GetUsersAsync());
+        }
+
         public async Task<IEnumerable<User>> GetUsersAsync()
         {
             return await GetCachedResponse(CacheKeys.Users, GetUsersSemaphore, () => _usersService.GetUsersAsync());
+        }
+
+        private async Task<IEnumerable<User>> GetCachedResponse(string cacheKey, Func<Task<IEnumerable<User>>> func)
+        {
+            var users = _cacheProvider.GetFromCache<IEnumerable<User>>(cacheKey);
+            if (users != null) return users;
+            users = await func();
+            _cacheProvider.SetCache(cacheKey, users, DateTimeOffset.Now.AddDays(1));
+
+            return users;
         }
         
         private async Task<IEnumerable<User>> GetCachedResponse(string cacheKey, SemaphoreSlim semaphore, Func<Task<IEnumerable<User>>> func)
