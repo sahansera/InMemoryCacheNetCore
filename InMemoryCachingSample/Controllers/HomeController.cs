@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using InMemoryCachingSample.Models;
+using InMemoryCachingSample.Services;
 using InMemoryCachingSample.Utils;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -15,11 +16,14 @@ namespace InMemoryCachingSample.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IMemoryCache _cache;
+        private readonly IUsersService _usersService;
 
-        public HomeController(ILogger<HomeController> logger, IMemoryCache memoryCache)
+
+        public HomeController(ILogger<HomeController> logger, IMemoryCache memoryCache, IUsersService usersService)
         {
             _logger = logger;
             _cache = memoryCache;
+            _usersService = usersService;
         }
 
         public IActionResult Index()
@@ -42,6 +46,13 @@ namespace InMemoryCachingSample.Controllers
         {
             var cacheEntry = _cache.Get<DateTime?>(CacheKeys.Entry);
             return View("Index", cacheEntry);
+        }
+        
+        public IActionResult CacheUsersAsync()
+        {
+            var users = _usersService.GetUsersAsync();
+            Console.WriteLine(users.Result.First());
+            return RedirectToAction("CacheGet");
         }
         
         public IActionResult CacheGetOrCreate()
@@ -69,5 +80,6 @@ namespace InMemoryCachingSample.Controllers
             _cache.Remove(CacheKeys.Entry);
             return RedirectToAction("CacheGet");
         }
+
     }
 }

@@ -9,9 +9,14 @@
         <e p="Controllers" t="Include">
           <e p="HomeController.cs" t="Include" />
         </e>
+        <e p="Infrastructure" t="Include">
+          <e p="CacheProvider.cs" t="Include" />
+          <e p="HttpClient.cs" t="Include" />
+        </e>
         <e p="InMemoryCachingSample.csproj" t="IncludeRecursive" />
         <e p="Models" t="Include">
           <e p="ErrorViewModel.cs" t="Include" />
+          <e p="User.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -24,6 +29,11 @@
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
           <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="Services" t="Include">
+          <e p="CachedUserService.cs" t="Include" />
+          <e p="IUsersService.cs" t="Include" />
+          <e p="UsersService.cs" t="Include" />
         </e>
         <e p="Startup.cs" t="Include" />
         <e p="Utils" t="Include">

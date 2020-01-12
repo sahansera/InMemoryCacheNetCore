@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using InMemoryCachingSample.Infrastructure;
+using InMemoryCachingSample.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,6 +26,11 @@ namespace InMemoryCachingSample
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddHttpClient();
+            services.AddScoped<UsersService>();
+            services.AddScoped<IUsersService, CachedUserService>();
+            services.AddScoped<ICacheProvider, CacheProvider>();
+            services.AddScoped<IHttpClient, HttpClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
