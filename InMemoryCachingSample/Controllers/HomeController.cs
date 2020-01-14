@@ -15,14 +15,14 @@ namespace InMemoryCachingSample.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IMemoryCache _cache;
         private readonly IUsersService _usersService;
+        private readonly ICacheService _cacheService;
 
-        public HomeController(ILogger<HomeController> logger, IMemoryCache memoryCache, IUsersService usersService)
+        public HomeController(ILogger<HomeController> logger, IUsersService usersService, ICacheService cacheService)
         {
             _logger = logger;
-            _cache = memoryCache;
             _usersService = usersService;
+            _cacheService = cacheService;
         }
 
         public IActionResult Index()
@@ -30,19 +30,14 @@ namespace InMemoryCachingSample.Controllers
             return View();
         }
         
-        public IActionResult Basic()
+        public IActionResult BasicSample()
         {
-            return RedirectToAction("CacheGet");
+            return View();
         }
         
-        public IActionResult CacheAsync()
+        public IActionResult AsyncSample()
         {
-            return RedirectToAction("CacheGet");
-        }
-
-        public IActionResult Privacy()
-        {
-            return View("CacheAsync");
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -55,27 +50,26 @@ namespace InMemoryCachingSample.Controllers
         {
             var users = await _usersService.GetUsers();
             var cacheEntry = users.First();
-            return View(nameof(Basic), cacheEntry);
+            return View(nameof(BasicSample), cacheEntry);
         }
-        
-        public async Task<IActionResult> CacheUsersAsync()
+
+        public async Task<IActionResult> CacheGetAsyncSample()
         {
             var users = await _usersService.GetUsersAsync();
             var cacheEntry = users.First();
-            return View(nameof(Basic), cacheEntry);
+            return View(nameof(AsyncSample), cacheEntry);
         }
-        
-        public async Task<IActionResult> CacheGetOrCreate()
-        {
-            var users = await _usersService.GetUsers();
-            var cacheEntry = users.First();
-            return View(nameof(Basic), cacheEntry);
-        }
-        
+
         public IActionResult CacheRemove()
         {
-            _cache.Remove(CacheKeys.Entry);
+            _cacheService.ClearCache();
             return RedirectToAction("CacheGet");
+        }
+        
+        public IActionResult CacheRemoveAsyncSample()
+        {
+            _cacheService.ClearCache();
+            return RedirectToAction("CacheGetAsyncSample");
         }
     }
 }

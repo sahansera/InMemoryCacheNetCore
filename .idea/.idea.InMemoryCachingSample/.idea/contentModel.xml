@@ -32,6 +32,8 @@
         </e>
         <e p="Services" t="Include">
           <e p="CachedUserService.cs" t="Include" />
+          <e p="CacheService.cs" t="Include" />
+          <e p="ICacheService.cs" t="Include" />
           <e p="IUsersService.cs" t="Include" />
           <e p="UsersService.cs" t="Include" />
         </e>
@@ -43,8 +45,10 @@
           <e p="_ViewImports.cshtml" t="Include" />
           <e p="_ViewStart.cshtml" t="Include" />
           <e p="Home" t="Include">
+            <e p="AsyncSample.cshtml" t="Include" />
+            <e p="BasicSample.cshtml" t="Include" />
+            <e p="CacheAsync.cshtml" t="Include" />
             <e p="Index.cshtml" t="Include" />
-            <e p="Privacy.cshtml" t="Include" />
           </e>
           <e p="Shared" t="Include">
             <e p="_Layout.cshtml" t="Include" />

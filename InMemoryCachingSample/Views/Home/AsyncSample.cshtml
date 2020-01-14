@@ -1,14 +1,14 @@
 @{
-    ViewData["Title"] = "Basic Example";
-    @model User
+    ViewData["Title"] = "Async Example";
+@model User;
 }
 
 <div class="text-center">
-    <h2 class="display-5">Basic In-Memory Example</h2>
+    <h2 class="display-5">Async In-Memory Example</h2>
     
     <h4>Cached User: @(Model == null ? "No cached entry found" : Model.email)</h4>
     
-    <a class="btn btn-primary" asp-action="CacheGetOrCreate">Cache It</a>
+    <a class="btn btn-primary" asp-action="CacheGetAsyncSample">Cache It</a>
     <a class="btn btn-secondary" asp-action="CacheRemove">Clear It</a>
 
 </div>

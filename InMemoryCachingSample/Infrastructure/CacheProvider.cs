@@ -10,6 +10,7 @@ namespace InMemoryCachingSample.Infrastructure
         T GetFromCache<T>(string key) where T : class;
         void SetCache<T>(string key, T value) where T : class;
         void SetCache<T>(string key, T value, DateTimeOffset duration) where T : class;
+        void ClearCache(string key);
     }
     public class CacheProvider : ICacheProvider
     {
@@ -36,6 +37,11 @@ namespace InMemoryCachingSample.Infrastructure
         public void SetCache<T>(string key, T value, DateTimeOffset duration) where T : class
         {
             _cache.Set(key, value, duration);
+        }
+
+        public void ClearCache(string key)
+        {
+            _cache.Remove(key);
         }
     }
 }

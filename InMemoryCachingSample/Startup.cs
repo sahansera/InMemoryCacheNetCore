@@ -30,6 +30,7 @@ namespace InMemoryCachingSample
             services.AddHttpClient();
             services.AddScoped<UsersService>();
             services.AddScoped<IUsersService, CachedUserService>();
+            services.AddScoped<ICacheService, CacheService>();
             services.AddScoped<ICacheProvider, CacheProvider>();
             services.AddScoped<IHttpClient, HttpClient>();
         }
