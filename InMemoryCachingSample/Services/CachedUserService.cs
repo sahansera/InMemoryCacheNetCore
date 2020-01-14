@@ -46,23 +46,21 @@ namespace InMemoryCachingSample.Services
         {
             var users = _cacheProvider.GetFromCache<IEnumerable<User>>(cacheKey);
 
-            if (users == null)
+            if (users != null) return users;
+            try
             {
-                try
+                await semaphore.WaitAsync();
+                users = _cacheProvider.GetFromCache<IEnumerable<User>>(cacheKey); // Recheck to make sure it didn't populate before entering semaphore
+                if (users != null)
                 {
-                    await semaphore.WaitAsync();
-                    users = _cacheProvider.GetFromCache<IEnumerable<User>>(cacheKey); // Recheck to make sure it didn't populate before entering semaphore
-                    if (users != null)
-                    {
-                        return users;
-                    }
-                    users = await func();
-                    _cacheProvider.SetCache(cacheKey, users, DateTimeOffset.Now.AddDays(1));
+                    return users;
                 }
-                finally
-                {
-                    semaphore.Release();
-                }
+                users = await func();
+                _cacheProvider.SetCache(cacheKey, users, DateTimeOffset.Now.AddDays(1));
+            }
+            finally
+            {
+                semaphore.Release();
             }
 
             return users;

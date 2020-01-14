@@ -32,12 +32,12 @@ namespace InMemoryCachingSample.Controllers
         
         public IActionResult BasicSample()
         {
-            return RedirectToAction(nameof(CacheGet));
+            return GetCachedUser(nameof(BasicSample));
         }
         
         public IActionResult AsyncSample()
         {
-            return RedirectToAction(nameof(CacheGetAsyncSample));
+            return GetCachedUser(nameof(AsyncSample));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -45,23 +45,15 @@ namespace InMemoryCachingSample.Controllers
         {
             return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
-        
-        public IActionResult CacheGet()
+
+        private IActionResult GetCachedUser(string view)
         {
             var users = _cacheService.GetCachedUser();
-            if (users == null) return View(nameof(BasicSample));
+            if (users == null) return View(view);
             var cachedEntry = users.FirstOrDefault();
-            return View(nameof(BasicSample), cachedEntry);
+            return View(view, cachedEntry);
         }
 
-        public IActionResult CacheGetAsyncSample()
-        {
-            var users = _cacheService.GetCachedUser();
-            if (users == null) return View(nameof(AsyncSample));
-            var cachedEntry = users.FirstOrDefault();
-            return View(nameof(AsyncSample), cachedEntry);
-        }
-        
         public async Task<IActionResult> CacheUser()
         {
             var users = await _usersService.GetUsers();
@@ -79,13 +71,13 @@ namespace InMemoryCachingSample.Controllers
         public IActionResult CacheRemove()
         {
             _cacheService.ClearCache();
-            return RedirectToAction("CacheGet");
+            return RedirectToAction(nameof(BasicSample));
         }
         
         public IActionResult CacheRemoveAsyncSample()
         {
             _cacheService.ClearCache();
-            return RedirectToAction("CacheGetAsyncSample");
+            return RedirectToAction(nameof(AsyncSample));
         }
     }
 }
