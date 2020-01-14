@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using InMemoryCachingSample.Infrastructure;
 using InMemoryCachingSample.Models;
 using InMemoryCachingSample.Utils;
@@ -13,9 +15,9 @@ namespace InMemoryCachingSample.Services
             _cacheProvider = cacheProvider;
         }
 
-        public User GetCachedUser()
+        public IEnumerable<User> GetCachedUser()
         {
-            throw new System.NotImplementedException();
+            return _cacheProvider.GetFromCache<IEnumerable<User>>(CacheKeys.Users);
         }
 
         public void ClearCache()

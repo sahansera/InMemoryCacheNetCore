@@ -32,12 +32,12 @@ namespace InMemoryCachingSample.Controllers
         
         public IActionResult BasicSample()
         {
-            return View();
+            return RedirectToAction(nameof(CacheGet));
         }
         
         public IActionResult AsyncSample()
         {
-            return View();
+            return RedirectToAction(nameof(CacheGetAsyncSample));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -46,16 +46,32 @@ namespace InMemoryCachingSample.Controllers
             return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
         
-        public async Task<IActionResult> CacheGet()
+        public IActionResult CacheGet()
+        {
+            var users = _cacheService.GetCachedUser();
+            if (users == null) return View(nameof(BasicSample));
+            var cachedEntry = users.FirstOrDefault();
+            return View(nameof(BasicSample), cachedEntry);
+        }
+
+        public IActionResult CacheGetAsyncSample()
+        {
+            var users = _cacheService.GetCachedUser();
+            if (users == null) return View(nameof(AsyncSample));
+            var cachedEntry = users.FirstOrDefault();
+            return View(nameof(AsyncSample), cachedEntry);
+        }
+        
+        public async Task<IActionResult> CacheUser()
         {
             var users = await _usersService.GetUsers();
             var cacheEntry = users.First();
             return View(nameof(BasicSample), cacheEntry);
         }
-
-        public async Task<IActionResult> CacheGetAsyncSample()
+        
+        public async Task<IActionResult> CacheUserAsyncSample()
         {
-            var users = await _usersService.GetUsersAsync();
+            var users = await _usersService.GetUsers();
             var cacheEntry = users.First();
             return View(nameof(AsyncSample), cacheEntry);
         }
