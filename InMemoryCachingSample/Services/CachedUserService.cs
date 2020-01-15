@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using InMemoryCachingSample.Infrastructure;
 using InMemoryCachingSample.Models;
 using InMemoryCachingSample.Utils;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace InMemoryCachingSample.Services
 {
@@ -36,8 +37,16 @@ namespace InMemoryCachingSample.Services
         {
             var users = _cacheProvider.GetFromCache<IEnumerable<User>>(cacheKey);
             if (users != null) return users;
+            
+            // Key not in cache, so get data.
             users = await func();
-            _cacheProvider.SetCache(cacheKey, users, DateTimeOffset.Now.AddDays(1));
+            
+            // Set cache options.
+            var cacheEntryOptions = new MemoryCacheEntryOptions()
+                // Keep in cache for this time, reset time if accessed.
+                .SetSlidingExpiration(TimeSpan.FromSeconds(10)); 
+            
+            _cacheProvider.SetCache(cacheKey, users, cacheEntryOptions);
 
             return users;
         }
@@ -56,7 +65,11 @@ namespace InMemoryCachingSample.Services
                     return users;
                 }
                 users = await func();
-                _cacheProvider.SetCache(cacheKey, users, DateTimeOffset.Now.AddDays(1));
+                
+                var cacheEntryOptions = new MemoryCacheEntryOptions()
+                    .SetSlidingExpiration(TimeSpan.FromSeconds(10)); 
+                
+                _cacheProvider.SetCache(cacheKey, users, cacheEntryOptions);
             }
             finally
             {
