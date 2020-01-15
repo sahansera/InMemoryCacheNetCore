@@ -3,13 +3,13 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
 [![Twitter: Sahan91](https://img.shields.io/twitter/follow/Sahan91.svg?style=social)](https://twitter.com/Sahan91)
 
-> Demo code of blog post from sahansera.dev
+> Demo code of blog post from [https://sahansera.dev/in-memory-cachine-aspcore-dotnet/](https://sahansera.dev/in-memory-cachine-aspcore-dotnet/)
 
 ### 🏠 [Homepage](sahansera.dev)
 
 ### ✨ [Demo](sahansera.dev)
 
-## Install
+## Usage
 
 ```sh
 Open up Visual Studio and Press F5
