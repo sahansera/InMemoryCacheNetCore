@@ -28,7 +28,7 @@ Has this Project helped you learn something new? or helped you at work? Do Consi
 or Give a ⭐️ if this project helped you!
 
 ## Share it!
-Please share this Repository within your developer community, if you think that this would a difference! Cheers.
+Please share this Repository within your developer community, if you think that this would make a difference! Cheers.
 
 ## Author
 
