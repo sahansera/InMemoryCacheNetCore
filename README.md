@@ -17,6 +17,19 @@
 Open up Visual Studio and Press F5
 ```
 
+## Questions? Bugs? Suggestions for Improvement?
+Having any issues or troubles getting started? [Get in touch with me](https://sahansera.dev/contact/) 
+
+## Support
+Has this Project helped you learn something new? or helped you at work? Do Consider Supporting.
+
+<a href="https://www.buymeacoffee.com/sahan" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" width="200"  ></a>
+
+or Give a ⭐️ if this project helped you!
+
+## Share it!
+Please share this Repository within your developer community, if you think that this would a difference! Cheers.
+
 ## Author
 
 👤 **Sahan Serasinghe**
@@ -26,9 +39,9 @@ Open up Visual Studio and Press F5
 * Github: [@sahan91](https://github.com/sahan91)
 * LinkedIn: [@sahanserasinghe](https://linkedin.com/in/sahanserasinghe)
 
-## Show your support
+## Contributing
+PRs are welcome! Thank you
 
-Give a ⭐️ if this project helped you!
 
 
 ***
