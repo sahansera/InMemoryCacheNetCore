@@ -1,7 +1,7 @@
 # Welcome to In Memory Caching .NET Core 3.1 Tutorial 👋
 [![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](sahansera.dev)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
-[![Twitter: Sahan91](https://img.shields.io/twitter/follow/Sahan91.svg?style=social)](https://twitter.com/Sahan91)
+[![Twitter: _SahanSera](https://img.shields.io/twitter/follow/_SahanSera.svg?style=social)](https://twitter.com/_SahanSera)
 
 ![](./Content/caching-2.jpg)
 
@@ -35,8 +35,8 @@ Please share this Repository within your developer community, if you think that 
 👤 **Sahan Serasinghe**
 
 * Website: https://sahansera.dev
-* Twitter: [@Sahan91](https://twitter.com/Sahan91)
-* Github: [@sahan91](https://github.com/sahan91)
+* Twitter: [@_SahanSera](https://twitter.com/_SahanSera)
+* Github: [@sahansera](https://github.com/sahansera)
 * LinkedIn: [@sahanserasinghe](https://linkedin.com/in/sahanserasinghe)
 
 ## Contributing
