@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using InMemoryCachingSample.Infrastructure;
 using InMemoryCachingSample.Models;
 using InMemoryCachingSample.Utils;
