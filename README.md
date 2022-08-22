@@ -1,11 +1,18 @@
-# Welcome to In Memory Caching .NET Core 3.1 Tutorial 👋
+# Welcome to In Memory Caching .NET Core 6 Tutorial 👋
 [![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](sahansera.dev)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
 [![Twitter: _SahanSera](https://img.shields.io/twitter/follow/_SahanSera.svg?style=social)](https://twitter.com/_SahanSera)
 
+## Intro
+
+Demo code of blog post from [https://sahansera.dev/in-memory-caching-aspcore-dotnet/](https://sahansera.dev/in-memory-caching-aspcore-dotnet/)
+
+> Note: I have recently upgraded this project to .NET Core 6 and it is now ready to be used. Please create a new issue if you have any questions or feedback.
+
+
+## Architecture
 ![](./Content/caching-2.jpg)
 
-> Demo code of blog post from [https://sahansera.dev/in-memory-caching-aspcore-dotnet/](https://sahansera.dev/in-memory-caching-aspcore-dotnet/)
 
 ### 🏠 [Homepage](sahansera.dev)
 
@@ -14,7 +21,9 @@
 ## Usage
 
 ```sh
-Open up Visual Studio and Press F5
+Open up Visual Studio and Press F5 
+or 
+dotnet run
 ```
 
 ## Questions? Bugs? Suggestions for Improvement?
