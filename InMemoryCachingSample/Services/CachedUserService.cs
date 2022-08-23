@@ -11,7 +11,6 @@ namespace InMemoryCachingSample.Services
 {
     public class CachedUserService : IUsersService
     {
-        
         private readonly UsersService _usersService;
         private readonly ICacheProvider _cacheProvider;
 
@@ -62,7 +61,7 @@ namespace InMemoryCachingSample.Services
                 
                 users = _cacheProvider.GetFromCache<IEnumerable<User>>(cacheKey); // Recheck to make sure it didn't populate before entering semaphore
                 if (users != null) return users;
-                
+
                 users = await func();
                 
                 var cacheEntryOptions = new MemoryCacheEntryOptions()
