@@ -2,7 +2,7 @@ namespace InMemoryCachingSample.Utils
 {
     public static class CacheKeys
     {
-        public static string Entry => "_Entry";
-        public static string Users => "_Users";
+        public const string Entry = "_Entry";
+        public const string Users = "_Users";
     }
 }

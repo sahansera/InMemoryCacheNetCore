@@ -42,6 +42,7 @@ namespace InMemoryCachingSample.Controllers
             return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
 
+        /* Actions to set the value in cache */
         private IActionResult GetCachedUser(string view)
         {
             var users = _cacheService.GetCachedUser();
@@ -64,6 +65,7 @@ namespace InMemoryCachingSample.Controllers
             return View(nameof(AsyncSample), cacheEntry);
         }
 
+        /* Actions to clear the cache */
         public IActionResult CacheRemove()
         {
             _cacheService.ClearCache();

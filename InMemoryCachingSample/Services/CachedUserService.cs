@@ -54,16 +54,15 @@ namespace InMemoryCachingSample.Services
         private async Task<IEnumerable<User>> GetCachedResponse(string cacheKey, SemaphoreSlim semaphore, Func<Task<IEnumerable<User>>> func)
         {
             var users = _cacheProvider.GetFromCache<IEnumerable<User>>(cacheKey);
-
             if (users != null) return users;
+
             try
             {
                 await semaphore.WaitAsync();
+                
                 users = _cacheProvider.GetFromCache<IEnumerable<User>>(cacheKey); // Recheck to make sure it didn't populate before entering semaphore
-                if (users != null)
-                {
-                    return users;
-                }
+                if (users != null) return users;
+                
                 users = await func();
                 
                 var cacheEntryOptions = new MemoryCacheEntryOptions()

@@ -5,6 +5,12 @@ using InMemoryCachingSample.Utils;
 
 namespace InMemoryCachingSample.Services
 {
+    public interface ICacheService
+    {
+        IEnumerable<User> GetCachedUser();
+        void ClearCache();
+    }
+    
     public class CacheService : ICacheService
     {
         private readonly ICacheProvider _cacheProvider;

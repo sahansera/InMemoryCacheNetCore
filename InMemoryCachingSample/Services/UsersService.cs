@@ -5,7 +5,12 @@ using InMemoryCachingSample.Models;
 
 namespace InMemoryCachingSample.Services
 {
-
+    public interface IUsersService
+    {
+        Task<IEnumerable<User>>GetUsers();
+        Task<IEnumerable<User>>GetUsersAsync();
+    }
+    
     public class UsersService : IUsersService
     {
         private readonly IHttpClient _httpClient;
