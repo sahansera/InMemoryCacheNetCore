@@ -47,6 +47,7 @@ namespace InMemoryCachingSample.Controllers
         {
             var users = _cacheService.GetCachedUser();
             if (users == null) return View(view);
+
             var cachedEntry = users.FirstOrDefault();
             return View(view, cachedEntry);
         }
@@ -55,13 +56,15 @@ namespace InMemoryCachingSample.Controllers
         {
             var users = await _usersService.GetUsers();
             var cacheEntry = users.First();
+
             return View(nameof(BasicSample), cacheEntry);
         }
         
         public async Task<IActionResult> CacheUserAsyncSample()
         {
-            var users = await _usersService.GetUsers();
+            var users = await _usersService.GetUsersAsync();
             var cacheEntry = users.First();
+
             return View(nameof(AsyncSample), cacheEntry);
         }
 
