@@ -1,57 +1,42 @@
-# Welcome to In Memory Caching .NET Core 6 Tutorial 👋
+# In-Memory Caching .NET Core 6 with IMemoryCache
 [![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](sahansera.dev)
+[![.NET](https://github.com/sahansera/InMemoryCacheNetCore/actions/workflows/dotnet.yml/badge.svg?branch=master)](https://github.com/sahansera/InMemoryCacheNetCore/actions/workflows/dotnet.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
 [![Twitter: _SahanSera](https://img.shields.io/twitter/follow/_SahanSera.svg?style=social)](https://twitter.com/_SahanSera)
 
-## Intro
+## Intro 👋
 
-Demo code of blog post from [https://sahansera.dev/in-memory-caching-aspcore-dotnet/](https://sahansera.dev/in-memory-caching-aspcore-dotnet/)
+This project leverages the IMemoryCache that's shipped as part of .NET/.NET Core SDKs to achieve in-memory caching specifically in monolithic environments. If you are looking for a distributed caching approach, then, my [other project](https://github.com/sahansera/DistributedCacheAspNetCoreRedis) would be more suitable for you.
 
-> Note: I have recently upgraded this project to .NET Core 6 and it is now ready to be used. Please create a new issue if you have any questions or feedback.
+I have also [blogged](https://sahansera.dev/in-memory-caching-aspcore-dotnet/) with a full explanation on how this is achieved.
 
-
-## Architecture
+## Architecture 🏗
 ![](./Content/caching-2.jpg)
 
+1. User A makes a request to our web service
+2. In-memory cache doesn’t have a value in place, it enters in to lock state and makes a request to the Users Service
+3. User B makes a request to our web service and waits till the lock is released
+4. This way, we can reduce the number of calls being made to the external web service. returns the response to our web service and the value is cached
+5. Lock is released, User A gets the response
+6. User B enters the lock and the cache provides the value (as long it’s not expired)
+7. User B gets the response
 
-### 🏠 [Homepage](sahansera.dev)
+## Usage 🚀
 
-### ✨ [Demo](sahansera.dev)
+Open up in your favorte editor and do a `dotnet run` at the root of the project.
 
-## Usage
+## Questions? Bugs? Suggestions for Improvement? ❓
 
-```sh
-Open up Visual Studio and Press F5 
-or 
-dotnet run
-```
-
-## Questions? Bugs? Suggestions for Improvement?
 Having any issues or troubles getting started? [Get in touch with me](https://sahansera.dev/contact/) 
 
-## Support
-Has this Project helped you learn something new? or helped you at work? Do Consider Supporting.
+## Support 🎗
 
-<a href="https://www.buymeacoffee.com/sahan" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" width="200"  ></a>
+Has this Project helped you learn something new? or helped you at work? Please consider giving a ⭐️ if this project helped you!
 
-or Give a ⭐️ if this project helped you!
+## Share it! ❤️
 
-## Share it!
 Please share this Repository within your developer community, if you think that this would make a difference! Cheers.
 
-## Author
+## Contributing ✍️
 
-👤 **Sahan Serasinghe**
-
-* Website: https://sahansera.dev
-* Twitter: [@_SahanSera](https://twitter.com/_SahanSera)
-* Github: [@sahansera](https://github.com/sahansera)
-* LinkedIn: [@sahanserasinghe](https://linkedin.com/in/sahanserasinghe)
-
-## Contributing
 PRs are welcome! Thank you
-
-
-
-***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
