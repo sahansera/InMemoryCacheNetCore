@@ -23,17 +23,11 @@ namespace InMemoryCachingSample.Controllers
 
         public IActionResult Index()
         {
-            return View();
-        }
-        
-        public IActionResult BasicSample()
-        {
-            return GetCachedUser(nameof(BasicSample));
-        }
-        
-        public IActionResult AsyncSample()
-        {
-            return GetCachedUser(nameof(AsyncSample));
+            var users = _cacheService.GetCachedUser();
+            if (users == null) return View();
+
+            var cachedEntry = users.FirstOrDefault();
+            return View((nameof(Index), cachedEntry));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -43,6 +37,14 @@ namespace InMemoryCachingSample.Controllers
         }
 
         /* Actions to set the value in cache */
+        public async Task<IActionResult> CacheUser()
+        {
+            var users = await _usersService.GetUsersAsync();
+            var cacheEntry = users.First();
+
+            return View(nameof(Index), cacheEntry);
+        }
+
         private IActionResult GetCachedUser(string view)
         {
             var users = _cacheService.GetCachedUser();
@@ -51,34 +53,12 @@ namespace InMemoryCachingSample.Controllers
             var cachedEntry = users.FirstOrDefault();
             return View(view, cachedEntry);
         }
-
-        public async Task<IActionResult> CacheUser()
-        {
-            var users = await _usersService.GetUsers();
-            var cacheEntry = users.First();
-
-            return View(nameof(BasicSample), cacheEntry);
-        }
         
-        public async Task<IActionResult> CacheUserAsyncSample()
-        {
-            var users = await _usersService.GetUsersAsync();
-            var cacheEntry = users.First();
-
-            return View(nameof(AsyncSample), cacheEntry);
-        }
-
         /* Actions to clear the cache */
-        public IActionResult CacheRemove()
+        public IActionResult ClearCache()
         {
             _cacheService.ClearCache();
-            return RedirectToAction(nameof(BasicSample));
-        }
-        
-        public IActionResult CacheRemoveAsyncSample()
-        {
-            _cacheService.ClearCache();
-            return RedirectToAction(nameof(AsyncSample));
+            return RedirectToAction(nameof(Index));
         }
     }
 }

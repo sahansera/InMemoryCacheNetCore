@@ -22,11 +22,6 @@ namespace InMemoryCachingSample.Services
             _cacheProvider = cacheProvider;
         }
 
-        public async Task<IEnumerable<User>> GetUsers()
-        {
-            return await GetCachedResponse(CacheKeys.Users, () => _usersService.GetUsersAsync());
-        }
-
         public async Task<IEnumerable<User>> GetUsersAsync()
         {
             return await GetCachedResponse(CacheKeys.Users, GetUsersSemaphore, () => _usersService.GetUsersAsync());

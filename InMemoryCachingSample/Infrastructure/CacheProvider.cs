@@ -13,7 +13,7 @@ namespace InMemoryCachingSample.Infrastructure
     }
     public class CacheProvider : ICacheProvider
     {
-        private const int CacheSeconds = 10; // 10 Seconds
+        private const int CacheTTLInSeconds = 10; // 10 Seconds
         
         private readonly IMemoryCache _cache;
 
@@ -30,7 +30,7 @@ namespace InMemoryCachingSample.Infrastructure
 
         public void SetCache<T>(string key, T value) where T : class
         {
-            SetCache(key, value, DateTimeOffset.Now.AddSeconds(CacheSeconds));
+            SetCache(key, value, DateTimeOffset.Now.AddSeconds(CacheTTLInSeconds));
         }
 
         public void SetCache<T>(string key, T value, DateTimeOffset duration) where T : class

@@ -17,6 +17,8 @@ namespace InMemoryCachingSample.Infrastructure
     }
     public class HttpClient : IHttpClient
     {
+        const string API_URL = "https://reqres.in/api/users";
+        
         private readonly IHttpClientFactory _clientFactory;
 
         public HttpClient(IHttpClientFactory clientFactory)
@@ -26,7 +28,7 @@ namespace InMemoryCachingSample.Infrastructure
 
         public async Task<IEnumerable<User>> Get()
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, "https://reqres.in/api/users");
+            var request = new HttpRequestMessage(HttpMethod.Get, API_URL);
             var client = _clientFactory.CreateClient();
 
             var response = await client.SendAsync(request);

@@ -7,7 +7,6 @@ namespace InMemoryCachingSample.Services
 {
     public interface IUsersService
     {
-        Task<IEnumerable<User>>GetUsers();
         Task<IEnumerable<User>>GetUsersAsync();
     }
     
@@ -18,11 +17,6 @@ namespace InMemoryCachingSample.Services
         public UsersService(IHttpClient httpClient)
         {
             _httpClient = httpClient;
-        }
-
-        public Task<IEnumerable<User>> GetUsers()
-        {
-            return _httpClient.Get();
         }
 
         public Task<IEnumerable<User>> GetUsersAsync()

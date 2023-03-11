@@ -1,11 +1,12 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
-    @model DateTime?
+    ViewData["Title"] = ".NET In-Memory Caching";
+    @model User;
 }
 
 <div class="text-center">
-    <h2 class="display-5">In-Memory Caching Demo</h2>
+     <h4>Cached User: @(Model == null ? "No cached entry found" : Model.email)</h4>
     
-    <p>Click either Basic or Async to interact</p>
+    <a class="btn btn-primary" asp-action="CacheUser">Cache It</a>
+    <a class="btn btn-secondary" asp-action="ClearCache">Clear It</a>
 
 </div>
