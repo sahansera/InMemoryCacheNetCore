@@ -36,9 +36,11 @@ namespace InMemoryCachingSample.Infrastructure
             if (response.IsSuccessStatusCode)
             {
                 await using var responseStream = await response.Content.ReadAsStreamAsync();
+
                 var usersResponse = await JsonSerializer.DeserializeAsync
                     <UserResponse>(responseStream);
                 var users = usersResponse.data;
+
                 return users;
             }
             else

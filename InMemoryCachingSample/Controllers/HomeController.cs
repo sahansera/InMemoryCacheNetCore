@@ -27,31 +27,16 @@ namespace InMemoryCachingSample.Controllers
             if (users == null) return View();
 
             var cachedEntry = users.FirstOrDefault();
-            return View((nameof(Index), cachedEntry));
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
+            return View(nameof(Index), cachedEntry);
         }
 
         /* Actions to set the value in cache */
         public async Task<IActionResult> CacheUser()
         {
             var users = await _usersService.GetUsersAsync();
-            var cacheEntry = users.First();
+            var cacheEntry = users.FirstOrDefault();
 
             return View(nameof(Index), cacheEntry);
-        }
-
-        private IActionResult GetCachedUser(string view)
-        {
-            var users = _cacheService.GetCachedUser();
-            if (users == null) return View(view);
-
-            var cachedEntry = users.FirstOrDefault();
-            return View(view, cachedEntry);
         }
         
         /* Actions to clear the cache */
@@ -59,6 +44,12 @@ namespace InMemoryCachingSample.Controllers
         {
             _cacheService.ClearCache();
             return RedirectToAction(nameof(Index));
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
     }
 }
