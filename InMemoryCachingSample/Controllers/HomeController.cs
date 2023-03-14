@@ -30,7 +30,6 @@ namespace InMemoryCachingSample.Controllers
             return View(nameof(Index), cachedEntry);
         }
 
-        /* Actions to set the value in cache */
         public async Task<IActionResult> CacheUser()
         {
             var users = await _usersService.GetUsersAsync();
@@ -39,7 +38,6 @@ namespace InMemoryCachingSample.Controllers
             return View(nameof(Index), cacheEntry);
         }
         
-        /* Actions to clear the cache */
         public IActionResult ClearCache()
         {
             _cacheService.ClearCache();

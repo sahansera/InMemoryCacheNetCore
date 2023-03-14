@@ -13,6 +13,8 @@ namespace InMemoryCachingSample.Services
     {
         private readonly UsersService _usersService;
         private readonly ICacheProvider _cacheProvider;
+        private readonly MemoryCacheEntryOptions cacheEntryOptions = new MemoryCacheEntryOptions()
+                    .SetSlidingExpiration(TimeSpan.FromSeconds(1000)); 
 
         private static readonly SemaphoreSlim GetUsersSemaphore = new SemaphoreSlim(1, 1);
 
@@ -58,9 +60,6 @@ namespace InMemoryCachingSample.Services
                 if (users != null) return users;
 
                 users = await func();
-                
-                var cacheEntryOptions = new MemoryCacheEntryOptions()
-                    .SetSlidingExpiration(TimeSpan.FromSeconds(10)); 
                 
                 _cacheProvider.SetCache(cacheKey, users, cacheEntryOptions);
             }
