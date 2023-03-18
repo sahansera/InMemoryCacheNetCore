@@ -35,7 +35,7 @@ namespace InMemoryCachingSample.Controllers
             var users = await _usersService.GetUsersAsync();
             var cacheEntry = users.FirstOrDefault();
 
-            return View(nameof(Index), cacheEntry);
+            return RedirectToAction(nameof(Index));
         }
         
         public IActionResult ClearCache()

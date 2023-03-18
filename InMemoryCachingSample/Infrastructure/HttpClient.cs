@@ -17,7 +17,7 @@ namespace InMemoryCachingSample.Infrastructure
     }
     public class HttpClient : IHttpClient
     {
-        const string API_URL = "https://reqres.in/api/users";
+        private const string API_URL = "https://reqres.in/api/users";
         
         private readonly IHttpClientFactory _clientFactory;
 
