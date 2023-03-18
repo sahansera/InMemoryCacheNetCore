@@ -9,11 +9,9 @@ namespace InMemoryCachingSample.Infrastructure
         void SetCache<T>(string key, T value, MemoryCacheEntryOptions options) where T : class;
         void ClearCache(string key);
     }
-    
+
     public class CacheProvider : ICacheProvider
-    {
-        private const int CacheTTLInSeconds = 10;
-        
+    {        
         private readonly IMemoryCache _cache;
 
         public CacheProvider(IMemoryCache cache)
