@@ -12,7 +12,7 @@ builder.Services.AddScoped<UsersService>();
 builder.Services.AddScoped<ICacheService, CacheService>();
 builder.Services.AddScoped<ICacheProvider, CacheProvider>();
 // Use fully qualified name to resolve ambiguity
-builder.Services.AddScoped<IHttpClient, HttpClient>();
+builder.Services.AddScoped<IHttpClient, InMemoryCachingSample.Infrastructure.HttpClient>();
 // Register IUsersService implementation with decorator pattern
 builder.Services.AddScoped<IUsersService>(sp => 
 {
