@@ -1,11 +1,10 @@
-using System.Net.Http.Json;
 using InMemoryCachingSample.Models;
 
 namespace InMemoryCachingSample.Infrastructure;
 
 public class UserResponse
 {
-    public User[] data { get; set; } = Array.Empty<User>();
+    public User[] Data { get; set; } = [];
 }
 
 public interface IHttpClient
@@ -13,25 +12,20 @@ public interface IHttpClient
     Task<IEnumerable<User>> Get();
 }
 
-public class HttpClient : IHttpClient
+public class HttpClient(IHttpClientFactory clientFactory) : IHttpClient
 {
     private const string API_URL = "https://reqres.in/api/users";
     
-    private readonly IHttpClientFactory _clientFactory;
+    private readonly IHttpClientFactory _clientFactory = clientFactory;
 
-    public HttpClient(IHttpClientFactory clientFactory)
-    {
-        _clientFactory = clientFactory;
-    }
-
-    public async Task<IEnumerable<User>> Get()
+  public async Task<IEnumerable<User>> Get()
     {
         var client = _clientFactory.CreateClient();
 
         try
         {
             var usersResponse = await client.GetFromJsonAsync<UserResponse>(API_URL);
-            return usersResponse?.data ?? Array.Empty<User>();
+            return usersResponse?.Data ?? [];
         }
         catch (Exception ex)
         {

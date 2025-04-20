@@ -1,5 +1,3 @@
-using Microsoft.Extensions.Caching.Memory;
-
 namespace InMemoryCachingSample.Infrastructure;
 
 public interface ICacheProvider
@@ -9,16 +7,11 @@ public interface ICacheProvider
     void ClearCache(string key);
 }
 
-public class CacheProvider : ICacheProvider
+public class CacheProvider(IMemoryCache cache) : ICacheProvider
 {        
-    private readonly IMemoryCache _cache;
+    private readonly IMemoryCache _cache = cache;
 
-    public CacheProvider(IMemoryCache cache)
-    {
-        _cache = cache;
-    }
-    
-    public T? GetFromCache<T>(string key) where T : class
+  public T? GetFromCache<T>(string key) where T : class
     {
         _cache.TryGetValue(key, out T? cachedResponse);
         return cachedResponse;

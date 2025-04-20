@@ -10,16 +10,11 @@ public interface ICacheService
     void ClearCache();
 }
 
-public class CacheService : ICacheService
+public class CacheService(ICacheProvider cacheProvider) : ICacheService
 {
-    private readonly ICacheProvider _cacheProvider;
+    private readonly ICacheProvider _cacheProvider = cacheProvider;
 
-    public CacheService(ICacheProvider cacheProvider)
-    {
-        _cacheProvider = cacheProvider;
-    }
-
-    public IEnumerable<User>? GetCachedUser()
+  public IEnumerable<User>? GetCachedUser()
     {
         return _cacheProvider.GetFromCache<IEnumerable<User>>(CacheKeys.Users);
     }

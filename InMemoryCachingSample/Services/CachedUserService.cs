@@ -2,14 +2,13 @@
 using InMemoryCachingSample.Infrastructure;
 using InMemoryCachingSample.Models;
 using InMemoryCachingSample.Utils;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace InMemoryCachingSample.Services;
 
-public class CachedUserService : IUsersService
+public class CachedUserService(IUsersService usersService, ICacheProvider cacheProvider) : IUsersService
 {
-    private readonly IUsersService _usersService;
-    private readonly ICacheProvider _cacheProvider;
+    private readonly IUsersService _usersService = usersService;
+    private readonly ICacheProvider _cacheProvider = cacheProvider;
     private const int CacheTTLInSeconds = 10;
     private readonly MemoryCacheEntryOptions _cacheEntryOptions = new()
     {
@@ -18,13 +17,7 @@ public class CachedUserService : IUsersService
 
     private static readonly SemaphoreSlim GetUsersSemaphore = new(1, 1);
 
-    public CachedUserService(IUsersService usersService, ICacheProvider cacheProvider)
-    {
-        _usersService = usersService;
-        _cacheProvider = cacheProvider;
-    }
-
-    public async Task<IEnumerable<User>> GetUsersAsync()
+  public async Task<IEnumerable<User>> GetUsersAsync()
     {
         return await GetCachedResponse(CacheKeys.Users, GetUsersSemaphore, _usersService.GetUsersAsync);
     }

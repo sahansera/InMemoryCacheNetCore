@@ -8,16 +8,11 @@ public interface IUsersService
     Task<IEnumerable<User>> GetUsersAsync();
 }
 
-public class UsersService : IUsersService
+public class UsersService(IHttpClient httpClient) : IUsersService
 {
-    private readonly IHttpClient _httpClient;
+    private readonly IHttpClient _httpClient = httpClient;
 
-    public UsersService(IHttpClient httpClient)
-    {
-        _httpClient = httpClient;
-    }
-
-    public Task<IEnumerable<User>> GetUsersAsync()
+  public Task<IEnumerable<User>> GetUsersAsync()
     {
         return _httpClient.Get();
     }

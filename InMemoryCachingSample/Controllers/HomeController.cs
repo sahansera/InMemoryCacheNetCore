@@ -1,27 +1,15 @@
-﻿using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using InMemoryCachingSample.Models;
+﻿using InMemoryCachingSample.Models;
 using InMemoryCachingSample.Services;
 
 namespace InMemoryCachingSample.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController(ILogger<HomeController> logger, IUsersService usersService, ICacheService cacheService) : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly IUsersService _usersService;
-        private readonly ICacheService _cacheService;
+        private readonly ILogger<HomeController> _logger = logger;
+        private readonly IUsersService _usersService = usersService;
+        private readonly ICacheService _cacheService = cacheService;
 
-        public HomeController(ILogger<HomeController> logger, IUsersService usersService, ICacheService cacheService)
-        {
-            _logger = logger;
-            _usersService = usersService;
-            _cacheService = cacheService;
-        }
-
-        public IActionResult Index()
+    public IActionResult Index()
         {
             var users = _cacheService.GetCachedUser();
             if (users == null) return View();
