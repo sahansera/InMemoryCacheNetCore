@@ -1,27 +1,24 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using InMemoryCachingSample.Infrastructure;
 using InMemoryCachingSample.Models;
 
-namespace InMemoryCachingSample.Services
+namespace InMemoryCachingSample.Services;
+
+public interface IUsersService
 {
-    public interface IUsersService
+    Task<IEnumerable<User>> GetUsersAsync();
+}
+
+public class UsersService : IUsersService
+{
+    private readonly IHttpClient _httpClient;
+
+    public UsersService(IHttpClient httpClient)
     {
-        Task<IEnumerable<User>>GetUsersAsync();
+        _httpClient = httpClient;
     }
-    
-    public class UsersService : IUsersService
+
+    public Task<IEnumerable<User>> GetUsersAsync()
     {
-        private readonly IHttpClient _httpClient;
-
-        public UsersService(IHttpClient httpClient)
-        {
-            _httpClient = httpClient;
-        }
-
-        public Task<IEnumerable<User>> GetUsersAsync()
-        {
-            return _httpClient.Get();
-        }
+        return _httpClient.Get();
     }
 }

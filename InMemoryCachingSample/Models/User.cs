@@ -1,8 +1,7 @@
-namespace InMemoryCachingSample.Models
+namespace InMemoryCachingSample.Models;
+
+public class User
 {
-    public class User
-    {
-        public int id { get; set; }
-        public string email { get; set; }
-    }
+    public int id { get; set; }
+    public string email { get; set; } = string.Empty;
 }
