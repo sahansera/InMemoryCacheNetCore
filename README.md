@@ -1,4 +1,4 @@
-# In-Memory Caching in .NET 9.0 with IMemoryCache
+# In-Memory Caching in .NET 10 with IMemoryCache
 [![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](https://sahansera.dev)
 [![.NET](https://github.com/sahansera/InMemoryCacheNetCore/actions/workflows/dotnet.yml/badge.svg?branch=master)](https://github.com/sahansera/InMemoryCacheNetCore/actions/workflows/dotnet.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
@@ -6,7 +6,7 @@
 
 ## Intro 👋
 
-This project demonstrates how to implement efficient in-memory caching using IMemoryCache in .NET applications. Originally built for .NET Core and progressively upgraded to .NET 9.0, this implementation showcases modern caching patterns specifically designed for monolithic environments.
+This project demonstrates how to implement efficient in-memory caching using IMemoryCache in .NET applications. Originally built for .NET Core and progressively upgraded to .NET 10, this implementation showcases modern caching patterns specifically designed for monolithic environments.
 
 For distributed caching approaches, check out my [other project](https://github.com/sahansera/DistributedCacheAspNetCoreRedis) using Redis.
 
@@ -17,9 +17,32 @@ I have also [blogged](https://sahansera.dev/in-memory-caching-aspcore-dotnet/) w
 This project has evolved through several .NET versions:
 - Started with .NET Core 3.1
 - Updated to .NET 6 with minimal hosting model
-- Recently upgraded to .NET 9.0 with modern C# features
+- Upgraded to .NET 9.0 with modern C# features
+- Currently on .NET 10 (LTS)
 
-## Key Features in .NET 9.0 Version ✨
+### Version history 🏷
+
+`main` always targets the latest LTS .NET. For an earlier version, check out the
+matching tag (e.g. `git checkout v9.0`). Browse all snapshots on the
+[tags page](https://github.com/sahansera/InMemoryCacheNetCore/tags).
+
+| Tag     | .NET version  | Support status |
+| ------- | ------------- | -------------- |
+| `v10.0` | .NET 10       | LTS            |
+| `v9.0`  | .NET 9.0      | STS (EOL Nov 2026) |
+| `v6.0`  | .NET 6        | EOL            |
+| `v3.1`  | .NET Core 3.1 | EOL            |
+
+> Note: tags are immutable snapshots, not maintained branches. Older,
+> out-of-support versions are preserved for reference only.
+
+## Maintenance 🔧
+
+To keep upkeep low and readers on a supported runtime, `main` tracks **LTS
+releases only**. It is bumped to the next LTS roughly every two years, and a new
+`vX.0` tag is cut after each upgrade so version-pinned readers can self-serve.
+
+## Key Features in .NET 10 Version ✨
 
 - **Modern C# Language Features**: File-scoped namespaces, nullable reference types, and target-typed new expressions
 - **Improved Architecture**: Interface-based design following SOLID principles
@@ -63,7 +86,7 @@ InMemoryCachingSample.Tests/       # Test project
 ## Usage 🚀
 
 ### Requirements
-- .NET 9.0 SDK or later
+- .NET 10 SDK or later
 
 ### Running the Project
 ```bash
