@@ -18,12 +18,14 @@ This project has evolved through several .NET versions:
 - Started with .NET Core 3.1
 - Updated to .NET 6 with minimal hosting model
 - Upgraded to .NET 9.0 with modern C# features
-- Currently on .NET 10 (LTS)
+- Currently multi-targets every in-support .NET version (8 LTS, 9 STS, 10 LTS), validated by a CI matrix
 
 ### Version history 🏷
 
-`main` always targets the latest LTS .NET. For an earlier version, check out the
-matching tag (e.g. `git checkout v9.0`). Browse all snapshots on the
+`main` multi-targets the .NET versions that are currently in support and is
+validated against each of them in CI. As versions reach end-of-life they are
+dropped from the target frameworks. For an older, out-of-support release, check
+out the matching tag (e.g. `git checkout v9.0`). Browse all snapshots on the
 [tags page](https://github.com/sahansera/InMemoryCacheNetCore/tags).
 
 | Tag     | .NET version  | Support status |
@@ -38,9 +40,10 @@ matching tag (e.g. `git checkout v9.0`). Browse all snapshots on the
 
 ## Maintenance 🔧
 
-To keep upkeep low and readers on a supported runtime, `main` tracks **LTS
-releases only**. It is bumped to the next LTS roughly every two years, and a new
-`vX.0` tag is cut after each upgrade so version-pinned readers can self-serve.
+To stay current with low upkeep, `main` targets every **in-support** .NET
+version and the CI matrix builds and tests against each one. When a version
+reaches end-of-life it is removed from `<TargetFrameworks>` and the CI matrix,
+and a `vX.0` tag is cut so version-pinned readers can self-serve.
 
 ## Key Features in .NET 10 Version ✨
 
@@ -86,7 +89,7 @@ InMemoryCachingSample.Tests/       # Test project
 ## Usage 🚀
 
 ### Requirements
-- .NET 10 SDK or later
+- .NET 8, 9, and 10 SDKs to build all target frameworks (or build a single one with `dotnet build --framework net10.0`)
 
 ### Running the Project
 ```bash
@@ -100,7 +103,7 @@ cd InMemoryCacheNetCore
 dotnet build
 
 # Run the application
-dotnet run --project InMemoryCachingSample/InMemoryCachingSample.csproj
+dotnet run --project InMemoryCachingSample/InMemoryCachingSample.csproj --framework net10.0
 
 # Run the tests
 dotnet test
