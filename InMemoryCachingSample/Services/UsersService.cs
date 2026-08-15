@@ -12,7 +12,7 @@ public class UsersService(IHttpClient httpClient) : IUsersService
 {
     private readonly IHttpClient _httpClient = httpClient;
 
-  public Task<IEnumerable<User>> GetUsersAsync()
+    public Task<IEnumerable<User>> GetUsersAsync()
     {
         return _httpClient.Get();
     }

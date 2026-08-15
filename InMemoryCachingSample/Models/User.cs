@@ -1,7 +1,12 @@
+using System.Text.Json.Serialization;
+
 namespace InMemoryCachingSample.Models;
 
 public class User
 {
-    public int id { get; set; }
-    public string email { get; set; } = string.Empty;
+    [JsonPropertyName("id")]
+    public int Id { get; set; }
+
+    [JsonPropertyName("email")]
+    public string Email { get; set; } = string.Empty;
 }
