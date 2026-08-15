@@ -17,11 +17,11 @@ public class CacheServiceTests
     {
         _cacheProviderMock = new Mock<ICacheProvider>();
         _cacheService = new CacheService(_cacheProviderMock.Object);
-        
+
         _sampleUsers = new List<User>
         {
-            new User { id = 1, email = "user1@example.com" },
-            new User { id = 2, email = "user2@example.com" }
+            new User { Id = 1, Email = "user1@example.com" },
+            new User { Id = 2, Email = "user2@example.com" }
         };
     }
 

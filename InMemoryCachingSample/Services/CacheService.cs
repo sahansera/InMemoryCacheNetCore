@@ -14,7 +14,7 @@ public class CacheService(ICacheProvider cacheProvider) : ICacheService
 {
     private readonly ICacheProvider _cacheProvider = cacheProvider;
 
-  public IEnumerable<User>? GetCachedUser()
+    public IEnumerable<User>? GetCachedUser()
     {
         return _cacheProvider.GetFromCache<IEnumerable<User>>(CacheKeys.Users);
     }

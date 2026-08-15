@@ -17,11 +17,11 @@ public class CachedUserService(IUsersService usersService, ICacheProvider cacheP
 
     private static readonly SemaphoreSlim GetUsersSemaphore = new(1, 1);
 
-  public async Task<IEnumerable<User>> GetUsersAsync()
+    public async Task<IEnumerable<User>> GetUsersAsync()
     {
         return await GetCachedResponse(CacheKeys.Users, GetUsersSemaphore, _usersService.GetUsersAsync);
     }
-    
+
     private async Task<IEnumerable<User>> GetCachedResponse(string cacheKey, SemaphoreSlim semaphore, Func<Task<IEnumerable<User>>> func)
     {
         var users = _cacheProvider.GetFromCache<IEnumerable<User>>(cacheKey);
@@ -30,13 +30,13 @@ public class CachedUserService(IUsersService usersService, ICacheProvider cacheP
         try
         {
             await semaphore.WaitAsync();
-            
+
             // Recheck to make sure it didn't populate before entering semaphore
             users = _cacheProvider.GetFromCache<IEnumerable<User>>(cacheKey);
             if (users != null) return users;
 
             users = await func();
-            
+
             _cacheProvider.SetCache(cacheKey, users, _cacheEntryOptions);
         }
         finally

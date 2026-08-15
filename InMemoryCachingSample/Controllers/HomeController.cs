@@ -9,7 +9,7 @@ namespace InMemoryCachingSample.Controllers
         private readonly IUsersService _usersService = usersService;
         private readonly ICacheService _cacheService = cacheService;
 
-    public IActionResult Index()
+        public IActionResult Index()
         {
             var users = _cacheService.GetCachedUser();
             if (users == null) return View();
@@ -25,7 +25,7 @@ namespace InMemoryCachingSample.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-        
+
         public IActionResult ClearCache()
         {
             _cacheService.ClearCache();
@@ -35,7 +35,7 @@ namespace InMemoryCachingSample.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

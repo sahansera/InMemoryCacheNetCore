@@ -8,31 +8,17 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - framework: net8.0
-          - framework: net9.0
-          - framework: net10.0
-
-    name: build (${{ matrix.framework }})
 
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: |
-          8.0.x
-          9.0.x
-          10.0.x
+        dotnet-version: 10.0.x
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore --framework ${{ matrix.framework }}
+      run: dotnet build --no-restore --configuration Release
     - name: Test
-      run: dotnet test --no-build --framework ${{ matrix.framework }} --verbosity normal
+      run: dotnet test --no-build --configuration Release --verbosity normal

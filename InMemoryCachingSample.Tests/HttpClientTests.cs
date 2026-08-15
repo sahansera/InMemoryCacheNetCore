@@ -17,7 +17,7 @@ public class HttpClientTests
         var response = new HttpResponseMessage
         {
             StatusCode = HttpStatusCode.OK,
-            Content = new StringContent(@"{""data"":[{""id"":1,""email"":""george.bluth@reqres.in""},{""id"":2,""email"":""janet.weaver@reqres.in""}]}")
+            Content = new StringContent(@"[{""id"":1,""email"":""leanne@example.com""},{""id"":2,""email"":""ervin@example.com""}]")
         };
 
         handlerMock
@@ -40,10 +40,10 @@ public class HttpClientTests
         // Assert
         var userList = users.ToList();
         Assert.Equal(2, userList.Count);
-        Assert.Equal(1, userList[0].id);
-        Assert.Equal("george.bluth@reqres.in", userList[0].email);
-        Assert.Equal(2, userList[1].id);
-        Assert.Equal("janet.weaver@reqres.in", userList[1].email);
+        Assert.Equal(1, userList[0].Id);
+        Assert.Equal("leanne@example.com", userList[0].Email);
+        Assert.Equal(2, userList[1].Id);
+        Assert.Equal("ervin@example.com", userList[1].Email);
     }
 
     [Fact]

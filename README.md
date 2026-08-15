@@ -1,6 +1,6 @@
 # In-Memory Caching in .NET 10 with IMemoryCache
 [![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](https://sahansera.dev)
-[![.NET](https://github.com/sahansera/InMemoryCacheNetCore/actions/workflows/dotnet.yml/badge.svg?branch=master)](https://github.com/sahansera/InMemoryCacheNetCore/actions/workflows/dotnet.yml)
+[![.NET](https://github.com/sahansera/InMemoryCacheNetCore/actions/workflows/dotnet.yml/badge.svg?branch=main)](https://github.com/sahansera/InMemoryCacheNetCore/actions/workflows/dotnet.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
 [![Twitter: _SahanSera](https://img.shields.io/twitter/follow/_SahanSera.svg?style=social)](https://twitter.com/_SahanSera)
 
@@ -18,32 +18,17 @@ This project has evolved through several .NET versions:
 - Started with .NET Core 3.1
 - Updated to .NET 6 with minimal hosting model
 - Upgraded to .NET 9.0 with modern C# features
-- Currently multi-targets every in-support .NET version (8 LTS, 9 STS, 10 LTS), validated by a CI matrix
+- Upgraded to .NET 10 LTS
 
 ### Version history 🏷
 
-`main` multi-targets the .NET versions that are currently in support and is
-validated against each of them in CI. As versions reach end-of-life they are
-dropped from the target frameworks. For an older, out-of-support release, check
-out the matching tag (e.g. `git checkout v9.0`). Browse all snapshots on the
-[tags page](https://github.com/sahansera/InMemoryCacheNetCore/tags).
-
-| Tag     | .NET version  | Support status |
-| ------- | ------------- | -------------- |
-| `v10.0` | .NET 10       | LTS            |
-| `v9.0`  | .NET 9.0      | STS (EOL Nov 2026) |
-| `v6.0`  | .NET 6        | EOL            |
-| `v3.1`  | .NET Core 3.1 | EOL            |
-
-> Note: tags are immutable snapshots, not maintained branches. Older,
-> out-of-support versions are preserved for reference only.
+`main` targets .NET 10 LTS and is validated in CI. Earlier implementations can
+still be inspected in the repository's Git history, but they are not supported.
 
 ## Maintenance 🔧
 
-To stay current with low upkeep, `main` targets every **in-support** .NET
-version and the CI matrix builds and tests against each one. When a version
-reaches end-of-life it is removed from `<TargetFrameworks>` and the CI matrix,
-and a `vX.0` tag is cut so version-pinned readers can self-serve.
+To stay current with low upkeep, `main` follows the current .NET LTS release.
+Older, out-of-support target frameworks are not kept on the default branch.
 
 ## Key Features in .NET 10 Version ✨
 
@@ -89,7 +74,7 @@ InMemoryCachingSample.Tests/       # Test project
 ## Usage 🚀
 
 ### Requirements
-- .NET 8, 9, and 10 SDKs to build all target frameworks (or build a single one with `dotnet build --framework net10.0`)
+- .NET 10 SDK
 
 ### Running the Project
 ```bash
@@ -103,7 +88,7 @@ cd InMemoryCacheNetCore
 dotnet build
 
 # Run the application
-dotnet run --project InMemoryCachingSample/InMemoryCachingSample.csproj --framework net10.0
+dotnet run --project InMemoryCachingSample/InMemoryCachingSample.csproj
 
 # Run the tests
 dotnet test

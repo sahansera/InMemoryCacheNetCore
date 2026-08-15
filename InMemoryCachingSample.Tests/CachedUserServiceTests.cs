@@ -20,11 +20,11 @@ public class CachedUserServiceTests
         _usersServiceMock = new Mock<IUsersService>();
         _cacheProviderMock = new Mock<ICacheProvider>();
         _cachedUserService = new CachedUserService(_usersServiceMock.Object, _cacheProviderMock.Object);
-        
+
         _sampleUsers = new List<User>
         {
-            new User { id = 1, email = "user1@example.com" },
-            new User { id = 2, email = "user2@example.com" }
+            new User { Id = 1, Email = "user1@example.com" },
+            new User { Id = 2, Email = "user2@example.com" }
         };
     }
 
@@ -64,10 +64,10 @@ public class CachedUserServiceTests
         _usersServiceMock.Verify(s => s.GetUsersAsync(), Times.Once);
         _cacheProviderMock.Verify(
             c => c.SetCache(
-                CacheKeys.Users, 
-                It.IsAny<IEnumerable<User>>(), 
+                CacheKeys.Users,
+                It.IsAny<IEnumerable<User>>(),
                 It.IsAny<MemoryCacheEntryOptions>()
-            ), 
+            ),
             Times.Once
         );
     }

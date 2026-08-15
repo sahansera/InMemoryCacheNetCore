@@ -14,7 +14,7 @@ builder.Services.AddScoped<ICacheProvider, CacheProvider>();
 // Use fully qualified name to resolve ambiguity
 builder.Services.AddScoped<IHttpClient, InMemoryCachingSample.Infrastructure.HttpClient>();
 // Register IUsersService implementation with decorator pattern
-builder.Services.AddScoped<IUsersService>(sp => 
+builder.Services.AddScoped<IUsersService>(sp =>
 {
     var usersService = sp.GetRequiredService<UsersService>();
     var cacheProvider = sp.GetRequiredService<ICacheProvider>();
